@@ -1,188 +1,194 @@
-# El Viaje de un Vatio
+# ⚡ El Viaje de un Vatio
 
-- subdominio o nombre de directorio: elviajedeunvatio
-
-- propuesta de repositorio para github: viaje-del-vatio
-
----
-
-## 1. La Idea Visual: "Anatomía de tu Enchufe en Tiempo Real"
-
-En lugar de mostrar tablas o gráficos bursátiles, la web presenta la red eléctrica española como **un circuito vivo (estilo placa base minimalista o diagrama de flujo animado)** a pantalla completa.
-
-El lienzo se divide en tres zonas conectadas por "cables" (líneas SVG) por los que circulan partículas luminosas cuya **velocidad** y **grosor** dependen de los megavatios reales de ese instante:
-
-1. **Bloque Izquierdo (Las Centrales Generadoras):**
-* Un bloque de nodos con iconos animados para cada tecnología: **Eólica** (aspas que giran más rápido cuantos más MW producen), **Solar Fotovoltaica** (brillo proporcional a la producción), **Hidráulica**, **Nuclear**, **Ciclo Combinado (Gas)** y **Almacenamiento/Baterías**.
-* Junto a las no renovables, un indicador de humo/carbono que crece según las toneladas de $CO_2$ emitidas en esa hora.
-
-
-2. **Bloque Central (El Corazón de la Red y "Tu Enchufe"):**
-* Todos los cables de las centrales confluyen en un gran nodo central que muestra la **Demanda Real en vivo (en MW)** comparada con la prevista por Red Eléctrica, el **porcentaje de energía limpia actual** y el **precio en tiempo real (€/MWh)**.
-
-
-3. **Bloque Derecho (Las Fronteras Internacionales):**
-* Cuatro cables que salen hacia **Francia, Portugal, Marruecos y Andorra**. Si el saldo es importador, las partículas viajan desde el país vecino hacia España; si es exportador, las partículas salen de España hacia fuera.
-
-
+> **Anatomía de tu enchufe y del sistema eléctrico español en tiempo real.**  
+> Una experiencia visual interactiva que transforma los datos abiertos de Red Eléctrica de España en un circuito vivo a pantalla completa.
 
 ---
 
-## 2. Cómo se conecta (Arquitectura a Coste 0 €)
+## 💡 ¿De qué trata este proyecto?
 
-La API de REData (`apidatos.ree.es`) es una API REST abierta que utiliza el estándar **JSON:API**.
+La mayoría de plataformas energéticas representan el sistema eléctrico mediante complejas tablas de datos o gráficos bursátiles difíciles de interpretar para el ciudadano de a pie. 
 
-* **Autenticación:** **Ninguna**. No requiere registro, ni cuenta, ni API Key.
-* **Estructura de la URL:**
+**El Viaje de un Vatio** reimagina esta experiencia concibiendo la red eléctrica española como un **circuito vivo (estilo placa base minimalista con estética *dark mode neon*)**. En lugar de números abstractos, el usuario puede ver y sentir cómo fluye la energía por los "cables" (líneas vectoriales SVG) mediante pulsos de luz cuya **velocidad** y **grosor** varían en tiempo real según los megavatios (MW) que se están generando y consumiendo en cada instante.
+
+La aplicación permite responder al instante a preguntas cotidianas como:
+* *¿Cuántos vatios de mi lavadora vienen del viento o del sol ahora mismo?*
+* *¿Cuánto me cuesta y cuánto CO₂ emite poner el horno a esta hora?*
+* *¿Qué ocurriría con la estabilidad del país si de repente apagáramos la energía nuclear o los parques eólicos?*
+* *¿Estamos importando energía de Francia o exportándola a Portugal y Marruecos?*
+
+---
+
+## 🎮 Funcionalidades Principales
+
+### 1. El Circuito Vivo en Tres Bloques
+* **Bloque Izquierdo (Centrales Generadoras):** Nodos interactivos para cada fuente de energía del mix (Eólica, Solar Fotovoltaica, Hidráulica, Nuclear, Ciclo Combinado de Gas, Almacenamiento/Baterías, Motores Diésel, etc.). Cada tarjeta muestra los MW generados, el porcentaje del mix, emisiones de CO₂ y cuenta con un **interruptor ON/OFF**.
+* **Bloque Central (El Corazón de la Red y tu Enchufe):** Confluencia de todos los flujos donde se monitoriza la **Demanda Real en vivo** vs. la Prevista por REE, el **porcentaje de energía limpia**, el factor de emisión de CO₂ y el **precio regulado (PVPC) en €/MWh**.
+* **Bloque Derecho (Fronteras e Interconexiones):** Monitorización de los intercambios internacionales con **Francia, Portugal, Marruecos y Andorra**, así como el enlace submarino peninsular en las islas. Las partículas invierten el sentido de la animación según si España está importando o exportando electricidad.
+
+### 2. Modo "¿De qué se alimenta mi electrodoméstico?"
+Permite seleccionar dispositivos de consumo habitual:
+* 📱 **Cargar el móvil** (15 W)
+* 🧺 **Lavadora / Horno** (2.200 W)
+* ❄️ **Aire Acondicionado / Bomba de calor** (1.200 W)
+* 🚗 **Coche Eléctrico (Wallbox)** (7.400 W)
+
+El sistema calcula en tiempo real el desglose exacto de vatios asignados a cada tecnología según el mix de esa hora, el **coste horario exacto en céntimos de euro (€)** y los **gramos de CO₂ generados**.
+
+### 3. El Viajero del Tiempo (Slider 24 Horas)
+Una barra de control temporal inferior (`00:00` a `23:59`) con botón de reproducción automática (*Auto-Play*). Permite deslizar el tiempo para comprender los ciclos energéticos:
+* La eólica y nuclear dominando las madrugadas.
+* El estallido solar al mediodía (abaratando drásticamente el precio de la electricidad).
+* La activación vespertina de las presas hidroeléctricas y las centrales de ciclo combinado para cubrir la cena.
+
+### 4. Modo Simulador de Déficit ("¿Qué pasa si apagamos...?")
+Al pulsar el interruptor de cualquier tecnología (por ejemplo, desconectar la Nuclear o la Eólica), la red entra en estado de alerta visual:
+* Calcula instantáneamente el **déficit de megavatios**.
+* Muestra el impacto en **millones de hogares** que se quedarían sin suministro eléctrico.
+* Calcula el factor multiplicador por el que habría que aumentar la quema de gas en ciclo combinado para suplir la carencia.
+* Ofrece un botón de restablecimiento inmediato de la red.
+
+### 5. Multirregión y Sistemas Aislados
+Selector de sistemas eléctricos configurado con los parámetros geográficos oficiales de REE:
+* 🇪🇸 **Península Ibérica**
+* 🏝️ **Canarias:** Representación fidedigna de un sistema insular aislado sin cables submarinos al continente, con presencia de tecnologías térmicas específicas (turbinas de gas, diésel).
+* ⛵ **Baleares:** Visualización del cable submarino HVDC de interconexión con la Península.
+
+### 6. Fichas Educativas y Divulgativas
+Hacer clic en cualquier tarjeta de generación abre un modal detallado con la explicación técnica de la tecnología, su factor de emisión oficial ($gCO_2/kWh$), su papel en la transición ecológica y sus magnitudes en directo.
+
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+El proyecto ha sido diseñado priorizando la ligereza, la respuesta a 60 FPS y un coste de infraestructura de 0 €.
+
+| Tecnología | Rol en el Proyecto | Justificación Técnica |
+| :--- | :--- | :--- |
+| **React 19** | Biblioteca de Interfaz | Gestión declarativa de la vista, componentes modulares y compatibilidad moderna. |
+| **TypeScript** | Lenguaje Principal | Tipado estricto del estándar `JSON:API` de REData (`data -> included -> attributes -> values`), eliminando errores por nulos en horas valles. |
+| **Vite 6+** | Build Tool & Dev Server | Arranque instantáneo en desarrollo y empaquetado optimizado en estático (`dist/`). |
+| **Zustand** | Gestión del Estado | Store reactivo ligero (~1 KB) sin *boilerplate* para coordinar el snapshot horario, los interruptores del simulador y el electrodoméstico activo. |
+| **d3-scale** | Matemáticas Visuales | Micro-módulo (~5 KB) de D3. Usa `scaleSqrt()` y `scaleLinear()` para normalizar rangos reales de potencia (de 0 a 15.000 MW) en grosores de cable SVG (de 2px a 20px) y duraciones de animación fluidas. |
+| **SVG + CSS Variables** | Motor de Renderizado | Dibujo vectorial de curvas Bézier para los cables. La animación de partículas eléctricas se delega a `@keyframes` nativos de la GPU mediante `stroke-dasharray` y `stroke-dashoffset`, garantizando 60 FPS sin consumo de CPU. |
+| **Vanilla CSS & Glassmorphism** | Diseño y Estilos | Estética *dark neon* (`#030712`, paneles translúcidos con `backdrop-filter: blur()`, sombras de neón dinámicas), sin dependencias pesadas de frameworks CSS. |
+| **Lucide React** | Iconografía Vectorial | Iconos nítidos y coherentes para fuentes de energía, electrodomésticos y controles de interfaz. |
+| **Oxlint** | Linter de Calidad | Análisis estático de código ultrarrápido basado en Rust. |
+
+---
+
+## 📡 Fuente de Datos: API de Red Eléctrica (REData)
+
+La aplicación consume directamente la API REST pública de **Red Eléctrica de España** ([apidatos.ree.es](https://apidatos.ree.es/)):
+
+* **Sin API Key ni registro:** Acceso totalmente abierto con cabecera `Accept: application/json`.
+* **Diseño precalculado:** Los endpoints devuelven los colores hexadecimales oficiales de cada fuente energética (`#6fb114` para eólica, `#e48500` para solar, `#4a90e2` para nuclear, etc.) y los porcentajes de cuota de mercado.
+* **Resiliencia & Fallback:** Incluye un generador de datos de respaldo calibrado (`mockData.ts`) con las curvas reales horarias de España para garantizar funcionamiento sin interrupciones ante caídas de la API externa o restricciones CORS.
+
+### Endpoints principales consultados:
+
+| Dimensión | Endpoint de REData | Frecuencia |
+| :--- | :--- | :--- |
+| **Demanda Eléctrica** | `demanda/demanda-tiempo-real` | Cada 5 minutos |
+| **Estructura de Generación** | `generacion/estructura-generacion` | Horario / Diario |
+| **Balance y Almacenamiento** | `balance/balance-electrico` | Horario / Diario |
+| **Precios de Mercado** | `mercados/precios-mercados-tiempo-real` (PVPC y Spot) | Cada hora |
+| **Emisiones Ambientales** | `generacion/no-renovables-detalle-emisiones-CO2` | Horario / Diario |
+| **Interconexiones Internacionales** | `intercambios/{frontera}-frontera-programado` | Horario / Diario |
+
+---
+
+## 🏛️ Arquitectura del Software
+
+La aplicación sigue un flujo unidireccional en 3 capas desacopladas:
+
 ```text
-https://apidatos.ree.es/{idioma}/datos/{categoria}/{widget}?start_date={inicio}&end_date={fin}&time_trunc={agrupacion}
-
+src/
+├── api/
+│   ├── redata.client.ts      # Cliente fetch para los endpoints REST de REE con timeout seguro
+│   ├── redata.mapper.ts      # Transforma el JSON:API crudo en un array limpio de 24 Snapshots
+│   └── mockData.ts           # Conjunto de datos calibrados para fallback y desarrollo offline
+├── models/
+│   └── grid.types.ts         # Contratos e interfaces (TechnologyNode, BorderFlow, HourlySnapshot)
+├── state/
+│   └── grid.store.ts         # Store centralizado (Zustand): estado reactivo, simulador y cálculos
+├── utils/
+│   └── scales.ts             # Escalado no lineal de d3-scale (MW -> px grosor y seg animación)
+└── components/
+    ├── Header.tsx            # Selector territorial (Península, Canarias, Baleares) y estado en vivo
+    ├── CircuitCanvas.tsx     # Lienzo SVG dinámico que proyecta los cables animados entre nodos
+    ├── GeneratorNode.tsx     # Tarjeta de central eléctrica interactiva con switch de apagado
+    ├── CentralPlugHub.tsx    # Hub de demanda, precio, mix limpio y selector de electrodoméstico
+    ├── BorderConnections.tsx # Indicadores de flujo con Francia, Portugal, Marruecos y Andorra
+    ├── TimeSliderBar.tsx     # Barra temporal 00-23h con botón Play/Pausa e información horaria
+    ├── DeficitAlert.tsx      # Alerta flotante de déficit energético en modo simulador
+    └── TechDetailModal.tsx   # Modal divulgativo con información técnica por fuente de energía
 ```
 
-
-* **Parámetros obligatorios en cada llamada**:
-* `start_date`: Fecha/hora de inicio en formato ISO 8601 (`YYYY-MM-DDTHH:MM`).
-* `end_date`: Fecha/hora de fin (`YYYY-MM-DDTHH:MM`).
-* `time_trunc`: Nivel de agregación temporal (`hour`, `day`, `month`, `year`). *(Nota: en el widget `demanda-tiempo-real`, aunque pases `hour`, la API te devuelve los puntos exactos cada **5 minutos**)*.
-
-
-* **Parámetros opcionales (para filtrar por territorio)**:
-* `geo_trunc=electric_system`
-* `geo_limit`: `peninsular`, `canarias`, `baleares`, `ceuta`, `melilla` o `ccaa`.
-* `geo_ids`: El ID numérico de la región (por ejemplo, `8741` para Península, `8742` Canarias, `8743` Baleares, o del `1` al `21` para cada Comunidad Autónoma).
-
-
-
-### Ejemplo de conexión directa en JavaScript
-
-Solo necesitas enviar la cabecera `Accept: application/json`:
-
-```javascript
-async function obtenerDemandaTiempoReal() {
-  // Pedimos el día de hoy completo
-  const hoy = new Date().toISOString().split('T')[0];
-  const url = `https://apidatos.ree.es/es/datos/demanda/demanda-tiempo-real?start_date=${hoy}T00:00&end_date=${hoy}T23:59&time_trunc=hour`;
-
-  const respuesta = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  });
-
-  const datosCrudos = await respuesta.json();
-  return datosCrudos;
-}
-
-```
-
-> **Consejo de arquitectura gratuita:** Puedes hacer el `fetch` directamente desde el navegador alojando la web gratis en GitHub Pages o Cloudflare Pages. Si en algún momento quieres evitar que cada visitante haga 4 llamadas al abrir la página, puedes poner un **Cloudflare Worker gratuito** (100.000 peticiones/día a 0 €) con `Cache-Control: max-age=300` (5 minutos). Así tu web carga en 10 milisegundos y a Red Eléctrica solo le llega 1 petición cada 5 minutos.
+### Funcionamiento en memoria:
+1. Al iniciar o cambiar de territorio, se descargan los datos del día en paralelo (`Promise.all`).
+2. El **Normalizador (`redata.mapper.ts`)** cruza las matrices horarias y genera un array en memoria de 24 posiciones.
+3. El usuario puede arrastrar el slider horario o apagar tecnologías a voluntad: **no se repiten peticiones de red**. Todo el recálculo (vatios de la lavadora, déficit, costes, curvas de cables) se resuelve en memoria a 0 milisegundos de latencia.
 
 ---
 
-## 3. Qué datos pedir y cómo vienen en bruto
+## 🚀 Instalación y Puesta en Marcha
 
-Con solo **4 endpoints** tienes absolutamente todo para alimentar la pantalla:
+### Prerrequisitos
+* **Node.js** (versión 18 o superior, compatible con Node 20 / 22 / 26).
+* Gestor de paquetes `npm`.
 
-| Qué alimenta en tu diseño | Categoría / Widget (`{categoria}/{widget}`) | Frecuencia de los datos |
-| --- | --- | --- |
-| **El latido en vivo:** Demanda real, programada y prevista | `demanda/demanda-tiempo-real` | Cada **5 minutos** |
-| **El mix y las fronteras:** Generación por tecnología + Almacenamiento + Saldo internacional | `balance/balance-electrico` o `generacion/estructura-generacion` | Horario / Diario |
-| **El bolsillo:** Precio de la luz regulado (PVPC) y mercado mayorista (Spot) | `mercados/precios-mercados-tiempo-real` | Cada **hora** del día |
-| **El impacto ambiental:** Emisiones de $CO_2$ por central y factor $tCO_2eq/MWh$ | `generacion/no-renovables-detalle-emisiones-CO2` | Horario / Diario |
+### Pasos
 
-### La gran ventaja del JSON de REData (ya trae diseño incluido)
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/magotonio/viaje-del-vatio.git
+   cd viaje-del-vatio
+   ```
 
-Cuando llamas a un endpoint de REData, el JSON que devuelve tiene una lista llamada `included`. Dentro viene cada serie de datos y **Red Eléctrica ya te regala el color hexadecimal oficial (`color`) y el porcentaje precalculado (`percentage`)** de cada tecnología:
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
 
-```json
-{
-  "data": {
-    "type": "Generación por tecnología",
-    "id": "gen1",
-    "attributes": {
-      "title": "Estructura de generación",
-      "last-update": "2026-10-19T09:10:00.000+02:00"
-    }
-  },
-  "included": [
-    {
-      "type": "Eólica",
-      "id": "10288",
-      "attributes": {
-        "title": "Eólica",
-        "color": "#6fb114",
-        "type": "Renovable",
-        "magnitude": "power",
-        "values": [
-          {
-            "value": 8450.2,
-            "percentage": 0.342,
-            "datetime": "2026-10-19T09:00:00.000+02:00"
-          }
-        ]
-      }
-    },
-    {
-      "type": "Solar fotovoltaica",
-      "id": "10289",
-      "attributes": {
-        "title": "Solar fotovoltaica",
-        "color": "#e48500",
-        "type": "Renovable",
-        "values": [
-          {
-            "value": 4120.5,
-            "percentage": 0.167,
-            "datetime": "2026-10-19T09:00:00.000+02:00"
-          }
-        ]
-      }
-    }
-  ]
-}
+3. **Ejecutar el entorno de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+   Abre [http://localhost:5173](http://localhost:5173) en tu navegador.
 
-```
+4. **Comprobar la calidad del código (Linter):**
+   ```bash
+   npm run lint
+   ```
 
-* Fíjate en `percentage: 0.342`: puedes usar ese número directamente para multiplicar el grosor del cable SVG (`stroke-width`) y la velocidad de la animación CSS.
-* Fíjate en `color: "#6fb114"`: puedes inyectar ese color directamente en tu dibujo sin tener que inventar una paleta desde cero.
+5. **Compilar para producción:**
+   ```bash
+   npm run build
+   ```
+   Genera una carpeta estática `dist/` ultraligera lista para alojar.
+
+6. **Previsualizar la compilación de producción:**
+   ```bash
+   npm run preview
+   ```
 
 ---
 
-## 4. Cómo es la interacción del usuario (Qué la hace única)
+## ☁️ Despliegue
 
-Para que un visitante entre y se quede trasteando varios minutos (y la comparta), la interfaz puede incluir **4 interacciones directas sobre el dibujo**:
+Al tratarse de una Single Page Application (SPA) 100% estática, puede alojarse de forma gratuita y sin servidor en plataformas como:
+* **Cloudflare Pages**
+* **Vercel**
+* **GitHub Pages**
+* **Netlify**
 
-### A. El Modo "¿De qué se alimenta mi electrodoméstico ahora mismo?"
+Solo requiere configurar el comando de construcción `npm run build` y la carpeta de salida `dist`.
 
-En el centro del circuito pones 4 botones con iconos cotidianos:
+---
 
-* **Cargar el móvil (15 W)**
-* **Lavadora / Horno (2.200 W)**
-* **Aire Acondicionado (1.200 W)**
-* **Coche Eléctrico (7.400 W)**
+## 📄 Licencia y Créditos
 
-Cuando el usuario pulsa "Horno (2.200 W)", el diagrama recalcula los números en tiempo real usando el `percentage` de la API y el precio del endpoint `precios-mercados-tiempo-real`:
-
-> *"Si enciendes el horno ahora mismo, **752 W** vienen del viento, **367 W** del sol, **440 W** de centrales nucleares y **310 W** de quemar gas. Te va a costar **0,24 € esta hora** y vas a emitir **180 gramos de $CO_2$**."*
-
-### B. El "Viajero del Tiempo" (Slider de 24 horas)
-
-Debajo del esquema colocas una barra deslizable de `00:00` a `23:59`.
-
-* A medida que el usuario arrastra el control de la mañana al mediodía, ve visualmente cómo el sol sube, el cable naranja de la **Solar Fotovoltaica** se vuelve gigante al mediodía, las turbinas de gas se apagan casi por completo y el precio en €/MWh cae en picado.
-* Al arrastrarlo hacia las `21:00`, ve cómo el cable solar desaparece y se encienden de golpe las presas **Hidráulicas** y el **Ciclo Combinado** para sostener el país.
-
-### C. Interruptores "¿Qué pasa si apagamos...?" (Modo Simulador)
-
-Cada nodo de generación (Nuclear, Eólica, Solar, Gas) tiene un interruptor de encendido/apagado (`ON/OFF`) en tu interfaz.
-
-* Si el usuario apaga de golpe la **Eólica** o la **Nuclear**, el circuito central se tiñe de alerta (rojo/ámbar) mostrando el déficit instantáneo en megavatios (por ejemplo: *"Faltan 7.100 MW: equivale a dejar sin luz a 5,2 millones de hogares, o tendríamos que multiplicar por 3 la quema de gas"*).
-
-### D. Selector de "Mundos Eléctricos" (Península vs. Islas vs. Comunidades)
-
-Un selector visual arriba permite cambiar el parámetro `geo_limit`:
-
-* Si el usuario pulsa en **Canarias** o **Baleares**, el circuito cambia por completo: desaparece la nuclear, aparecen los motores diésel y la turbina de gas, o se ve el cable submarino que conecta la Península con Baleares.
-* Si elige su **Comunidad Autónoma** (datos históricos/mensuales), descubre si su región es una "isla exportadora" (como Extremadura o Castilla y León) o un "sumidero de consumo" (como Madrid).
+* **Datos energéticos:** Procedentes de la iniciativa Open Data de [Red Eléctrica de España (REE)](https://www.ree.es/) a través del servicio [REData](https://apidatos.ree.es/).
+* **Iconos:** [Lucide Icons](https://lucide.dev/).
+* Proyecto creado con propósitos divulgativos, educativos y de concienciación sobre la transición energética y el consumo responsable.
