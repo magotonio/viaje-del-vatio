@@ -74,6 +74,7 @@ export const CircuitCanvas: React.FC = () => {
           const startY = hubCenterY + hubOffset;
 
           const isExporting = border.flowMW < 0;
+          const isImporting = border.flowMW > 0;
           const absMW = Math.abs(border.flowMW);
 
           newConnections.push({
@@ -86,7 +87,10 @@ export const CircuitCanvas: React.FC = () => {
             mw: absMW,
             enabled: absMW > 0,
             isBorder: true,
-            isReverse: isExporting
+            // Las coordenadas van desde el Hub central (x1) a la frontera (x2):
+            // - Exportación (flowMW < 0): Hub -> Frontera (animación normal / flow-forward)
+            // - Importación (flowMW > 0): Frontera -> Hub (animación inversa / flow-reverse)
+            isReverse: isImporting
           });
         }
       });

@@ -3,7 +3,7 @@ import type { TechnologyNode } from '../models/grid.types';
 import { useGridStore } from '../state/grid.store';
 import { formatMW, formatPercentage, windSpeedScale, solarGlowScale } from '../utils/scales';
 import {
-  Wind,
+  Fan,
   Sun,
   Waves,
   Atom,
@@ -22,19 +22,20 @@ export const GeneratorNode: React.FC<GeneratorNodeProps> = ({ generator }) => {
   const { toggleGenerator, setSelectedNodeDetail } = useGridStore();
 
   const renderIcon = () => {
-    const isSpinningWind = generator.iconName === 'wind' && generator.enabled && generator.mw > 0;
+    const isSpinningWind = (generator.iconName === 'fan' || generator.iconName === 'wind') && generator.enabled && generator.mw > 0;
     const isGlowingSun = generator.iconName === 'sun' && generator.enabled && generator.mw > 0;
 
     const windDuration = windSpeedScale(generator.mw);
     const sunOpacity = solarGlowScale(generator.mw);
 
     switch (generator.iconName) {
+      case 'fan':
       case 'wind':
         return (
           <div
             style={isSpinningWind ? { animation: `spin ${windDuration}s linear infinite`, transformOrigin: 'center' } : {}}
           >
-            <Wind size={22} />
+            <Fan size={22} />
           </div>
         );
       case 'sun':

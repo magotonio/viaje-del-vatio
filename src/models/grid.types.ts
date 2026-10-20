@@ -20,7 +20,7 @@ export interface TechnologyNode {
   co2FactorGPerKWh: number; // gCO2 / kWh
   hourlyCO2Tons: number;
   enabled: boolean;
-  iconName: 'wind' | 'sun' | 'waves' | 'atom' | 'flame' | 'battery' | 'factory' | 'cable';
+  iconName: 'fan' | 'wind' | 'sun' | 'waves' | 'atom' | 'flame' | 'battery' | 'factory' | 'cable';
   description: string;
 }
 

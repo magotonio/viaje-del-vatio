@@ -1,12 +1,12 @@
 import type { GeoRegion, GridDayData, HourlySnapshot, TechnologyNode, BorderFlow } from '../models/grid.types';
 
 // Official REE colors and emission factors (gCO2 / kWh)
-export const REE_TECHS_METADATA: Record<string, { color: string; techType: 'renovable' | 'no-renovable' | 'almacenamiento' | 'enlace'; co2Factor: number; icon: 'wind' | 'sun' | 'waves' | 'atom' | 'flame' | 'battery' | 'factory' | 'cable'; description: string }> = {
+export const REE_TECHS_METADATA: Record<string, { color: string; techType: 'renovable' | 'no-renovable' | 'almacenamiento' | 'enlace'; co2Factor: number; icon: 'fan' | 'wind' | 'sun' | 'waves' | 'atom' | 'flame' | 'battery' | 'factory' | 'cable'; description: string }> = {
   'eolica': {
     color: '#6fb114',
     techType: 'renovable',
     co2Factor: 0,
-    icon: 'wind',
+    icon: 'fan',
     description: 'Parques eólicos terrestres y marinos que aprovechan la fuerza del viento.'
   },
   'solar-fotovoltaica': {
